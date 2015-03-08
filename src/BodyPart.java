@@ -2,10 +2,12 @@ import java.io.Serializable;
 
 
 /**
- * Класс описывает часть тела, от него
- * унаследованны все остальные части 
+ * BodyPart class
  * 
- * @author Артём Попов
+ * Represent abstract part of a creature body
+ * All part classes must extend this class
+ * 
+ * @author Artem Popov
  *
  * @version 1.0
  */
@@ -13,13 +15,13 @@ import java.io.Serializable;
 public abstract class BodyPart extends Sprite implements Serializable {
 	public static final String BODY_PART_IMAGE_PATH = "/res/parts/";
 	
-	//Информация о тканях
+	//Material information section
 	
-	public static final int MEAT_COST = 5; // затраты каждой клеткой единиц энергии
-	public static final int FAT_COST = -2; // жиры позволяют наоборот запасаться энергией
+	public static final int MEAT_COST = 5; //How many energy each cell consumes
+	public static final int FAT_COST = -2; //Fat capable of holding energy
 	public static final int SKIN_COST = 1; 
 	
-	public static final int SKIN_WEIGHT = 2; //вес клеток кожи
+	public static final int SKIN_WEIGHT = 2; //Weight of a skin cell
 	public static final int FAT_WEIGHT = 1;
 	public static final int MEAT_WEIGHT = 3;
 	
@@ -28,27 +30,27 @@ public abstract class BodyPart extends Sprite implements Serializable {
 	public static final int FAT_HOT_RESIST = -1;
 	public static final int SKIN_HOT_RESIST = 2;
 	
-	public static final int MEAT_MATERIAL = 0xff0000; // красный цвет пикселей соответствует тканям мышц
-	public static final int SKIN_MATERIAL = 0x939393; // цвет пикселей для кожи
-	public static final int FAT_MATERIAL = 0x334455; // цвет пикселей для жира
+	public static final int MEAT_MATERIAL = 0xff0000; // Meat pixel color
+	public static final int SKIN_MATERIAL = 0x939393; // Skin pixel color
+	public static final int FAT_MATERIAL = 0x334455; // Fat pixel color
 	
-	// Конец информации о тканях
+	// End of material info section
 	
 	
-	private int relX, relY; //смещение относительно центра масс тела
-    private int orientation; //ориентация конечности(подробнее см в bodyPartINFO
-    private int weight; //влияет на скорость.
-    private int defence; // уровень защиты от внешних воздейтствий(чем больше клеток кожи, тем выше)
-    private int energyCosts; // затраты этой частью энергии
-    private PartFunction[] avalibleFunctions; // функции, которые способна выполнять эта часть тела
-    private boolean isActive; // активна ли в данный момент часть
+	private int relX, relY; //Relative coordinates of part
+    private int orientation; //part orientation(read bodyPartINFO.txt)
+    private int weight; //affects on speed
+    private int defense; //defense against environment influence
+    private int energyCosts; //Part's energy consumption
+    private PartFunction[] avalibleFunctions; //All potential functions of the part
+    private boolean isActive; // active now or not
     private Creature parent;
     
     /*other properties
      * can be supplemented later
      */
     
-    private int fatCells; //количество клеток жира
+    private int fatCells; //fat cells quantity
     private int meatCells;
     private int skinCells;
     private int hotResist;  //1-100 
@@ -68,12 +70,12 @@ public abstract class BodyPart extends Sprite implements Serializable {
     	calculateProperties();
     }
     
-    /** используется для расчета затрат энергии,
-     *  веса и других характеристик части тела
-     * части тела
+    /** This method can be used
+     * for calculating part characteristics
+     * like weight, resist, defence etc.
      */
     private void calculateProperties() {
-    	//подсчет клеток разного типа
+    	//calculate all types of cells
     	
     	for(int i = 0; i < pixels.length; i++) {
     		switch(pixels[i]) {
@@ -94,13 +96,11 @@ public abstract class BodyPart extends Sprite implements Serializable {
     	
     	coldResist = fatCells * FAT_COLD_RESIST + skinCells * SKIN_COLD_RESIST;
     	hotResist = fatCells * FAT_HOT_RESIST + skinCells * SKIN_HOT_RESIST;
-    	
-    	unlockFunctions();
     }
     
     /**
-     * Определяет, какие функции из набора будут
-     * доступны для данной части тела
+     * Determines whether function
+     * is avalible or not
      */
     protected abstract void unlockFunctions();
     
@@ -116,18 +116,18 @@ public abstract class BodyPart extends Sprite implements Serializable {
     	return weight;
     }
     
-    public int getDefence() {
-    	return defence;
+    public int getDefense() {
+    	return defense;
     }
     
     public Creature getParent() {
     	return parent;
     }
     
-    /*описаниие функций части тела
-     *с помощью этого класса будет
-     *определятся, доступна ли та или 
-     *иная функция
+    /*Part function discription
+     * 
+     * with this class can be
+     * determined avalible functions
     */
     public static class PartFunction{
     	private int number;
