@@ -6,4 +6,5 @@ Creature + BodyPart
 -Cделал класс BodyPart
 
 07.03.2015 - CenterPart
-08.03.2015 - HeadPart, LimbPart
+08.03.2015 - HeadPart
+11.03.2015 - LimbPart + ...
