@@ -194,6 +194,10 @@ public abstract class BodyPart extends Sprite implements Serializable {
 	public int getMeatCells() {
 		return meatCells;
 	}
+	
+	public int getEnergyConsumption() {
+		return this.energyCosts;
+	}
     
     
 }
