@@ -1,9 +1,9 @@
 # Cat2D
-Just a training project, do not judge it seriously
+Just a training project, do not consider it seriously.
 
 News 08.03.2015
 =====================================
-Status:Ladies and gentlemans work is boiling!
+Status: work on it
 
 Enchantments and improvments:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
